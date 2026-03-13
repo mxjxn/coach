@@ -82,7 +82,13 @@ export function Goals({ categoryFilter }: GoalsProps) {
   const priorityColors: Record<number, string> = { 1: 'text-red-400', 2: 'text-yellow-400', 3: 'text-gray-400' };
 
   const title = categoryFilter 
-    ? `${categoryFilter.charAt(0).toUpperCase() + categoryFilter.slice(1)} Goals`
+    ? categoryFilter === 'projects' 
+      ? 'Projects'
+      : categoryFilter === 'personal'
+      ? 'Personal'
+      : categoryFilter === 'timebound'
+      ? 'Time-Bound'
+      : categoryFilter.charAt(0).toUpperCase() + categoryFilter.slice(1)
     : 'Active Goals';
 
   if (!isConnected) {
