@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, use } from 'react';
 import { useRouter } from 'next/navigation';
 import { Navbar } from '@/components/Navbar';
 
@@ -28,8 +28,9 @@ interface Task {
   goal_title?: string;
 }
 
-export default function GoalDetailPage({ params }: { params: { id: string } }) {
+export default function GoalDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();
+  const resolvedParams = use(params);
   const [goal, setGoal] = useState<Goal | null>(null);
   const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(true);
@@ -39,11 +40,11 @@ export default function GoalDetailPage({ params }: { params: { id: string } }) {
   useEffect(() => {
     fetchGoal();
     fetchTasks();
-  }, [params.id]);
+  }, [resolvedParams.id]);
 
   const fetchGoal = async () => {
     try {
-      const res = await fetch(`/api/goals/${params.id}`);
+      const res = await fetch(`/api/goals/${resolvedParams.id}`);
       if (!res.ok) throw new Error('Failed to fetch goal');
       const data = await res.json();
       setGoal(data);
@@ -60,7 +61,7 @@ export default function GoalDetailPage({ params }: { params: { id: string } }) {
       const res = await fetch(`/api/tasks`);
       if (!res.ok) throw new Error('Failed to fetch tasks');
       const data = await res.json();
-      const goalTasks = data.filter((t: Task) => t.goal_id === parseInt(params.id));
+      const goalTasks = data.filter((t: Task) => t.goal_id === parseInt(resolvedParams.id));
       setTasks(goalTasks);
     } catch (error) {
       console.error('Error fetching tasks:', error);
@@ -69,7 +70,7 @@ export default function GoalDetailPage({ params }: { params: { id: string } }) {
 
   const handleUpdate = async () => {
     try {
-      const res = await fetch(`/api/goals/${params.id}`, {
+      const res = await fetch(`/api/goals/${resolvedParams.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
@@ -109,7 +110,7 @@ export default function GoalDetailPage({ params }: { params: { id: string } }) {
               This goal may have been deleted or doesn't exist.
             </p>
             <p className="text-sm text-gray-500">
-              Goal ID: {params.id}
+              Goal ID: {resolvedParams.id}
             </p>
             <button
               onClick={() => router.push('/dashboard')}

@@ -17,8 +17,9 @@ interface Task {
   goal_title?: string;
 }
 
-export default function TaskDetailPage({ params }: { params: { id: string } }) {
+export default function TaskDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();
+  const resolvedParams = use(params);
   const [task, setTask] = useState<Task | null>(null);
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState(false);
@@ -26,11 +27,11 @@ export default function TaskDetailPage({ params }: { params: { id: string } }) {
 
   useEffect(() => {
     fetchTask();
-  }, [params.id]);
+  }, [resolvedParams.id]);
 
   const fetchTask = async () => {
     try {
-      const res = await fetch(`/api/tasks/${params.id}`);
+      const res = await fetch(`/api/tasks/${resolvedParams.id}`);
       if (!res.ok) throw new Error('Failed to fetch task');
       const data = await res.json();
       setTask(data);
@@ -44,7 +45,7 @@ export default function TaskDetailPage({ params }: { params: { id: string } }) {
 
   const handleUpdate = async () => {
     try {
-      const res = await fetch(`/api/tasks/${params.id}`, {
+      const res = await fetch(`/api/tasks/${resolvedParams.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
