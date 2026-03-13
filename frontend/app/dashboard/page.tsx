@@ -42,55 +42,62 @@ export default function DashboardPage() {
         </div>
 
         {/* Quick Links */}
-        <div className="mb-8 grid gap-4 sm:grid-cols-3">
+        <div className="mb-8 grid gap-4 sm:grid-cols-4">
+          <Link
+            href="/inbox"
+            className="rounded-lg border border-gray-800 bg-gray-900/50 p-4 hover:bg-gray-800 transition-colors"
+          >
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="font-medium">📥 Inbox</h3>
+                <p className="text-sm text-gray-400">Uncaptured thoughts</p>
+              </div>
+              <span className="text-2xl">→</span>
+            </div>
+          </Link>
           <Link
             href="/projects"
             className="rounded-lg border border-gray-800 bg-gray-900/50 p-4 hover:bg-gray-800 transition-colors"
           >
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="font-medium">Projects</h3>
-                <p className="text-sm text-gray-400">Long-term initiatives</p>
+                <h3 className="font-medium">📁 Projects</h3>
+                <p className="text-sm text-gray-400">Active projects</p>
               </div>
               <span className="text-2xl">→</span>
             </div>
           </Link>
-          <Link
-            href="/dashboard"
-            className="rounded-lg border border-gray-800 bg-gray-900/50 p-4 hover:bg-gray-800 transition-colors"
-          >
+          <div className="rounded-lg border border-gray-800 bg-gray-900/50 p-4">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="font-medium">Goals</h3>
-                <p className="text-sm text-gray-400">All categories</p>
+                <h3 className="font-medium">🎯 Goals</h3>
+                <p className="text-sm text-gray-400">Personal & time-bound</p>
               </div>
-              <span className="text-2xl">→</span>
             </div>
-          </Link>
-          <Link
-            href="/dashboard"
-            className="rounded-lg border border-gray-800 bg-gray-900/50 p-4 hover:bg-gray-800 transition-colors"
-          >
+          </div>
+          <div className="rounded-lg border border-gray-800 bg-gray-900/50 p-4">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="font-medium">Tasks</h3>
+                <h3 className="font-medium">✅ Tasks</h3>
                 <p className="text-sm text-gray-400">Action items</p>
               </div>
-              <span className="text-2xl">→</span>
             </div>
-          </Link>
+          </div>
         </div>
 
         <div className="grid gap-6 lg:grid-cols-2">
           <div className="lg:col-span-2">
-            <Goals />
+            <Goals categoryFilter="projects" />
           </div>
           <div>
-            <Tasks />
+            <Goals categoryFilter="personal" />
           </div>
           <div>
-            <CheckIns />
+            <Goals categoryFilter="timebound" />
           </div>
+        </div>
+        <div className="mt-6">
+          <Tasks />
         </div>
       </main>
     </div>
