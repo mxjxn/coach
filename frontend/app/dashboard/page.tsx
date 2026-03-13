@@ -41,6 +41,39 @@ export default function DashboardPage() {
           </p>
         </div>
 
+        {/* GTD Flow */}
+        <div className="mb-8 rounded-lg border border-gray-800 bg-gradient-to-r from-gray-900 to-gray-800 p-6">
+          <h2 className="text-lg font-semibold mb-4">Getting Things Done Flow</h2>
+          <div className="flex items-center justify-between text-lg">
+            <Link href="/inbox" className="flex flex-col items-center gap-2 hover:opacity-80 transition-opacity">
+              <span className="text-4xl">📥</span>
+              <span className="font-medium">Inbox</span>
+              <span className="text-xs text-gray-400">Capture</span>
+            </Link>
+            <span className="text-2xl text-gray-600">→</span>
+            <div className="flex flex-col items-center gap-2">
+              <span className="text-4xl">💭</span>
+              <span className="font-medium text-gray-400">Thought</span>
+              <span className="text-xs text-gray-500">Clarify</span>
+            </div>
+            <span className="text-2xl text-gray-600">→</span>
+            <Link href="/projects" className="flex flex-col items-center gap-2 hover:opacity-80 transition-opacity">
+              <span className="text-4xl">📁</span>
+              <span className="font-medium">Project</span>
+              <span className="text-xs text-gray-400">Organize</span>
+            </Link>
+            <span className="text-2xl text-gray-600">→</span>
+            <div className="flex flex-col items-center gap-2">
+              <span className="text-4xl">✅</span>
+              <span className="font-medium text-gray-400">Task</span>
+              <span className="text-xs text-gray-500">Engage</span>
+            </div>
+          </div>
+          <p className="mt-4 text-sm text-gray-400 text-center">
+            The act of categorizing IS the clarity. Everything starts in inbox.
+          </p>
+        </div>
+
         {/* Quick Links */}
         <div className="mb-8 grid gap-4 sm:grid-cols-4">
           <Link
