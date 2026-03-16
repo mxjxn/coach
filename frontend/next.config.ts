@@ -1,7 +1,5 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  /* config options here */
+module.exports = {
+  future: {
+    unstable_disableTurbo: true,
+  },
 };
-
-export default nextConfig;
